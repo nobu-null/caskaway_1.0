@@ -1,0 +1,333 @@
+{% extends "base.html" %}
+{% block title %}Caskaway Cashflow{% endblock %}
+{% block menuBottom %}
+        <div id="footer-bar" class="footer-bar-2">
+            <a href="{% url 'targets' %}" class="{% if navbar == 'targets' %}active-nav{% endif %}">
+                <i class="fa fa-bullseye"></i><span>Targets</span></a>
+            <a href="{% url 'financeHome' %}" class="{% if navbar == 'finance' %}active-nav{% endif %}">
+                <i class="fa fa-wallet"></i><span>Cash Flow</span><strong></strong></a>
+            <a href="{% url 'summary' %}" class="{% if navbar == 'summary' %}active-nav{% endif %}">
+                <i class="fa fa-chart-line"></i><span>Summary</span></a>
+
+        </div>
+    {% endblock %}
+{% block content %}
+
+    <!--  Financial Buttons  -->
+        <div class="row text-center mb-0 mt-n2">
+            <a href="#" data-menu="menu-transaction-zreads" class="col-6 pe-0">
+                <div class="card card-style me-2 mb-3">
+                    <i class="fa fa-arrow-down color-green-dark fa-2x mt-4"></i>
+                    <h1 class="pt-2 font-18">Z Reads</h1>
+                    <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Transfer Funds</p>
+                </div>
+            </a>
+            <a href="#" data-menu="menu-transaction-expenses" class="col-6 ps-0">
+                <div class="card card-style ms-2 mb-3">
+                    <i class="fa fa-arrow-up color-highlight fa-2x mt-4"></i>
+                    <h1 class="pt-2 font-18">Expenses</h1>
+                    <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Request Funds</p>
+                </div>
+            </a>
+            <a href="#" data-menu="menu-transaction-income" class="col-6 pe-0">
+                <div class="card card-style me-2 mb-3">
+                    <i class="fa fa-plus color-yellow-dark fa-2x mt-4"></i>
+                    <h1 class="pt-2 font-18">Income</h1>
+                    <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Transfer Funds</p>
+                </div>
+            </a>
+            <a href="#" data-menu="menu-transaction-deposit" class="col-6 ps-0">
+                <div class="card card-style ms-2 mb-3">
+                    <i class="fa fa-sync color-blue-dark fa-2x mt-4"></i>
+                    <h1 class="pt-2 font-18">Deposits</h1>
+                    <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Request Funds</p>
+                </div>
+            </a>
+            <a href="#" data-menu="menu-transaction-orders" class="col-6 pe-0">
+                <div class="card card-style me-2 mb-3">
+                    <i class="fa fa-shopping-cart color-brown-dark fa-2x mt-4"></i>
+                    <h1 class="pt-2 font-18">Orders</h1>
+                    <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Transfer Funds</p>
+                </div>
+            </a>
+            <a href="#" data-menu="menu-transaction-safecount" class="col-6 ps-0">
+                <div class="card card-style ms-2 mb-3">
+                    <i class="fa fa-vault color-teal-dark fa-2x mt-4"></i>
+                    <h1 class="pt-2 font-18">Safe Count</h1>
+                    <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Request Funds</p>
+                </div>
+            </a>
+        </div>
+
+{% endblock %}
+
+ {% block offCanvas %}
+     <!-- Transactions Modals -->
+     <div id="menu-transaction-zreads" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Z Reads</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+            <div class="content px-1">
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+
+                    <div class="input-style input-style-always-active validate-field no-borders">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{eposform.date}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{eposform.date.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{eposform.wet}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{eposform.wet.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{eposform.dry}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{eposform.dry.label}}</label>
+                        </div>
+                    </div>
+                     <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{eposform.pdq}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{eposform.pdq.label}}</label>
+                        </div>
+                    </div>
+
+
+                <button type="submit" name="save_epos" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
+                </form>
+
+            </div>
+     </div>
+
+     <div id="menu-transaction-expenses" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Expenses</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+            <div class="content px-1">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                      <div class="input-style input-style-always-active validate-field no-borders">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{expensesform.date}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{expensesform.date.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{expensesform.where}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{expensesform.where.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{expensesform.category}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{expensesform.category.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{expensesform.item}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{expensesform.item.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{expensesform.amount}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{expensesform.amount.label}}</label>
+                        </div>
+                    </div>
+
+                <button type="submit" name="save_expenses" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
+                </form>
+            </div>
+     </div>
+
+     <div id="menu-transaction-income" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Income</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+            <div class="content px-1">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                      <div class="input-style input-style-always-active validate-field no-borders">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{incomeform.date}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{incomeform.date.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{incomeform.category}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{incomeform.category.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{incomeform.description}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{incomeform.description.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{incomeform.amount}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{incomeform.amount.label}}</label>
+                        </div>
+                    </div>
+
+                <button type="submit" name="save_income" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
+                </form>
+            </div>
+     </div>
+
+      <div id="menu-transaction-deposit" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Deposits</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+            <div class="content px-1">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                      <div class="input-style input-style-always-active validate-field no-borders">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositform.date}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositform.date.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositform.category}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositform.category.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositform.who}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositform.who.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositform.amount}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositform.amount.label}}</label>
+                        </div>
+                    </div>
+
+                <button type="submit" name="save_deposit" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
+                </form>
+            </div>
+     </div>
+
+      <div id="menu-transaction-orders" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Income</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+            <div class="content px-1">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                      <div class="input-style input-style-always-active validate-field no-borders">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{orderform.date}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{orderform.date.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{orderform.category}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{orderform.category.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{orderform.amount}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{orderform.amount.label}}</label>
+                        </div>
+                    </div>
+
+                <button type="submit" name="save_order" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
+                </form>
+            </div>
+     </div>
+
+      <div id="menu-transaction-safecount" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Income</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+            <div class="content px-1">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                      <div class="input-style input-style-always-active validate-field no-borders">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{safeform.date}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{safeform.date.label}}</label>
+                        </div>
+                    </div>
+
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="row">
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.fifty_pound}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;50</label>
+                            </div>
+
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.twenty_pound}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;20</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.ten_pound}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;10</label>
+                            </div>
+
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.five_pound}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;5</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.one_pound}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;1</label>
+                            </div>
+
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.fifty_pence}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">50p</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.twenty_pence}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">20p</label>
+                            </div>
+
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.ten_pence}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">10p</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.five_pence}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">5p</label>
+                            </div>
+
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
+                                {{safeform.coppers}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">1 &amp; 2p</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <button type="submit" name="save_safe" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
+                </form>
+            </div>
+     </div>
+
+     <script>
+     $(function(){
+        $(document).on('click','input[type=text]',function(){ this.select(); });
+    });
+</script>
+ {% endblock %}
