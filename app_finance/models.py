@@ -202,7 +202,7 @@ class Targets(models.Model):
         verbose_name_plural = "targets"
 
         def __str__(self):
-            return {self.target}
+            return '{self.target}'
 
 
 class Staff(models.Model):
@@ -219,7 +219,7 @@ class Staff(models.Model):
         verbose_name_plural = "Staff"
 
         def __str__(self):
-            return f'{self.f_name} {self.l_name}'
+            return {self.f_name}, {self.position}
 
 
 class HoursWorked(models.Model):

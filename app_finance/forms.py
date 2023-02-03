@@ -1,10 +1,6 @@
 from django import forms
-from .models import Epos, Expenses, Income, Deposits, Orders, SafeCount, DateTable
+from .models import Epos, Expenses, Income, Deposits, Orders, SafeCount, HoursWorked
 import datetime
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
-
 
 
 class EposForm(forms.ModelForm):
@@ -82,4 +78,14 @@ class SafeCountForm(forms.ModelForm):
             'ten_pence': forms.NumberInput(attrs={'class': 'form-control', 'value': '0', 'onClick': 'this.select();'}),
             'five_pence': forms.NumberInput(attrs={'class': 'form-control', 'value': '0', 'onClick': 'this.select();'}),
             'coppers': forms.NumberInput(attrs={'class': 'form-control', 'value': '0', 'onClick': 'this.select();'}),
+        }
+
+
+class HoursWorkedForm(forms.ModelForm):
+    class Meta:
+        model = HoursWorked
+        fields = ['staff_member', 'hours_worked']
+        widgets = {
+            'staff_member': forms.Select(attrs={'class': 'form-control'}),
+            'hours_worked': forms.NumberInput(attrs={'class': 'form-control'}),
         }

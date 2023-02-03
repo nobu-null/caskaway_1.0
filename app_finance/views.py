@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import EposForm, ExpensesForm, IncomeForm, DepositForm, OrderForm, SafeCountForm
+from .forms import EposForm, ExpensesForm, IncomeForm, DepositForm, OrderForm, SafeCountForm, HoursWorkedForm
 from django.http import HttpResponseRedirect
-from app_finance.models import Sites
-from .models import Epos, Expenses, ExpensesCategory, IncomeCategory, DepositCategory, OrderCategory, Deposits, Targets, DateTable
+from .models import Sites, Epos, Expenses, ExpensesCategory, IncomeCategory, DepositCategory, OrderCategory, Deposits, Targets, DateTable, HoursWorked
 from django.db.models import Sum
 import pandas as pd
 import datetime
@@ -78,8 +77,8 @@ def index(request):
             x.save()
             return HttpResponseRedirect('/finance/')
 
-    if 'save_order' in request.POST:
-        form = OrderForm(request.POST)
+    if 'save_hours' in request.POST:
+        form = HoursWorked(request.POST)
         date = request.POST.get('dateSelect')
         if form.is_valid():
             x = form.save(commit=False)
@@ -103,23 +102,29 @@ def index(request):
     else:
 
         eposform = EposForm
+
         expensesform = ExpensesForm()
         expensesform.fields["category"].queryset = ExpensesCategory.objects.filter(group_id=site)
+
         incomeform = IncomeForm()
         incomeform.fields["category"].queryset = IncomeCategory.objects.filter(group_id=site)
+
         depositform = DepositForm()
         depositform.fields["category"].queryset = DepositCategory.objects.filter(group_id=site)
+
         orderform = OrderForm()
         orderform.fields["category"].queryset = OrderCategory.objects.filter(group_id=site)
+
         safeform = SafeCountForm
 
+        hoursworked = HoursWorkedForm
 
 
     context = {
         'eposform': eposform,
         'expensesform': expensesform,
         'incomeform': incomeform,
-        'orderform': orderform,
+        'hoursworked': hoursworked,
         'depositform': depositform,
         'safeform': safeform,
         'navbar': 'finance',
@@ -128,6 +133,7 @@ def index(request):
         'balance': balance,
         'deposits': deposits,
         'this_week': this_week,
+
 
 
     }

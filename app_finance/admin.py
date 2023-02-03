@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.apps import apps
 from .models import Sites, PubGroup, AgreementType, Epos, Expenses, ExpensesCategory, \
-    IncomeCategory, DepositCategory, OrderCategory, Targets
+    IncomeCategory, DepositCategory, OrderCategory, Targets, Staff
 
 
 @admin.register(Sites)
@@ -52,3 +52,8 @@ class ExpensesCategoryAdmin(admin.ModelAdmin):
 @admin.register(Targets)
 class TargetsAdmin(admin.ModelAdmin):
     list_display = ("site", "collection")
+
+
+@admin.register(Staff)
+class StaffAdmin(admin.ModelAdmin):
+    pass
