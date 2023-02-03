@@ -14,6 +14,8 @@ class DateTable(models.Model):
         managed = False
         db_table = 'date_table'
 
+    def __str__(self):
+        return f'{self.date}'
 
 class AgreementType(models.Model):
     type = models.CharField(max_length=150)
@@ -53,7 +55,7 @@ class Sites(models.Model):
 class Epos(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
     wet = models.DecimalField(max_digits=10, decimal_places=2)
     dry = models.DecimalField(max_digits=10, decimal_places=2)
     pdq = models.DecimalField(max_digits=10, decimal_places=2)
@@ -79,7 +81,7 @@ class ExpensesCategory(models.Model):
 class Expenses(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
     where = models.CharField(max_length=255)
     category = models.ForeignKey(ExpensesCategory, on_delete=models.CASCADE)
     item = models.CharField(max_length=255)
@@ -106,7 +108,7 @@ class IncomeCategory(models.Model):
 class Income(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
     category = models.ForeignKey(IncomeCategory, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -121,7 +123,7 @@ class Income(models.Model):
 class SafeCount(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
     fifty_pound = models.IntegerField()
     twenty_pound = models.IntegerField()
     ten_pound = models.IntegerField()
@@ -154,7 +156,7 @@ class DepositCategory(models.Model):
 class Deposits(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
     who = models.CharField(max_length=255)
     category = models.ForeignKey(DepositCategory, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -180,7 +182,7 @@ class OrderCategory(models.Model):
 class Orders(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
     category = models.ForeignKey(OrderCategory, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -201,3 +203,34 @@ class Targets(models.Model):
 
         def __str__(self):
             return {self.target}
+
+
+class Staff(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    site = models.ForeignKey(Sites, on_delete=models.CASCADE)
+    f_name = models.CharField(max_length=50)
+    l_name = models.CharField(max_length=50)
+    email = models.CharField(max_length=150)
+    position = models.CharField(max_length=100)
+    salary = models.DecimalField(max_digits=10, decimal_places=2)
+    hours = models.IntegerField()
+
+    class Meta:
+        verbose_name_plural = "Staff"
+
+        def __str__(self):
+            return f'{self.f_name} {self.l_name}'
+
+
+class HoursWorked(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    site = models.ForeignKey(Sites, on_delete=models.CASCADE)
+    date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
+    staff_member = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    hours_worked = models.FloatField()
+
+    class Meta:
+        verbose_name_plural = "hours_worked"
+
+        def __str__(self):
+            return f'{self.staff_member} - {self.hours_worked}'

@@ -43,10 +43,10 @@
                     <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Request Funds</p>
                 </div>
             </a>
-            <a href="#" data-menu="menu-transaction-orders" class="col-6 pe-0">
+            <a href="#" data-menu="menu-transaction-rota" class="col-6 pe-0">
                 <div class="card card-style me-2 mb-3">
-                    <i class="fa fa-shopping-cart color-brown-dark fa-2x mt-4"></i>
-                    <h1 class="pt-2 font-18">Orders</h1>
+                    <i class="fa fa-users color-brown-dark fa-2x mt-4"></i>
+                    <h1 class="pt-2 font-18">Rotas</h1>
                     <p class="font-11 opacity-50 mt-n2 mb-3">Tap to Transfer Funds</p>
                 </div>
             </a>
@@ -59,6 +59,8 @@
             </a>
         </div>
 
+
+
 {% endblock %}
 
  {% block offCanvas %}
@@ -70,13 +72,13 @@
 
                 <form action="" method="POST">
                     {% csrf_token %}
-
-
                     <div class="input-style input-style-always-active validate-field no-borders">
-                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{eposform.date}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{eposform.date.label}}</label>
-                        </div>
+                        <select id="form5" name="dateSelect">
+                        <option value="default" disabled="" selected="">Select a Value</option>
+                        {% for x in this_week %}
+                            <option value="{{ x.id }}">{{ x.date | date }}</option>
+                        {% endfor %}
+                    </select>
                     </div>
                     <div class="input-style input-style-always-active validate-field no-borders no-icon">
                         <div class="input-style input-style-always-active validate-field no-borders no-icon">
@@ -111,10 +113,12 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                       <div class="input-style input-style-always-active validate-field no-borders">
-                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{expensesform.date}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{expensesform.date.label}}</label>
-                        </div>
+                          <select id="form5" name="dateSelect">
+                        <option value="default" disabled="" selected="">Select a Value</option>
+                        {% for x in this_week %}
+                            <option value="{{ x.id }}">{{ x.date | date }}</option>
+                        {% endfor %}
+                    </select>
                     </div>
                     <div class="input-style input-style-always-active validate-field no-borders no-icon">
                         <div class="input-style input-style-always-active validate-field no-borders no-icon">
@@ -153,10 +157,12 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                       <div class="input-style input-style-always-active validate-field no-borders">
-                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{incomeform.date}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{incomeform.date.label}}</label>
-                        </div>
+                         <select id="form5" name="dateSelect">
+                        <option value="default" disabled="" selected="">Select a Value</option>
+                        {% for x in this_week %}
+                            <option value="{{ x.id }}">{{ x.date | date }}</option>
+                        {% endfor %}
+                    </select>
                     </div>
                     <div class="input-style input-style-always-active validate-field no-borders no-icon">
                         <div class="input-style input-style-always-active validate-field no-borders no-icon">
@@ -189,10 +195,12 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                       <div class="input-style input-style-always-active validate-field no-borders">
-                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{depositform.date}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositform.date.label}}</label>
-                        </div>
+                        <select id="form5" name="dateSelect">
+                        <option value="default" disabled="" selected="">Select a Value</option>
+                        {% for x in this_week %}
+                            <option value="{{ x.id }}">{{ x.date | date }}</option>
+                        {% endfor %}
+                    </select>
                     </div>
                     <div class="input-style input-style-always-active validate-field no-borders no-icon">
                         <div class="input-style input-style-always-active validate-field no-borders no-icon">
@@ -218,33 +226,54 @@
             </div>
      </div>
 
-      <div id="menu-transaction-orders" class="menu menu-box-bottom menu-box-detached" style="display: block;">
-        <div class="menu-title"><h1>Income</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+      <div id="menu-transaction-rota" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Rota</h1><p class="color-highlight">Enter Transaction Details</p>
+            <a href="#" class="close-menu"><i class="fa fa-times"></i></a>
+        </div>
+
         <div class="divider divider-margins mt-3 mb-3"></div>
             <div class="content px-1">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                      <div class="input-style input-style-always-active validate-field no-borders">
-                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{orderform.date}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{orderform.date.label}}</label>
+            <form action="" method="POST">
+                <div class="row me-0 ms-0 mb-0">
+                    <div class="col-10 ps-0 pe-0">
+                        {% csrf_token %}
+
+                            <div class="input-style input-style-always-active validate-field no-borders">
+                                <select id="form5" name="dateSelect">
+                                    <option value="default" disabled="" selected="">Select a Value</option>
+                                        {% for x in this_week %}
+                                            <option value="{{ x.id }}">{{ x.date | date }}</option>
+                                        {% endfor %}
+                                </select>
+                            </div>
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                                <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                                    {{orderform.category}}
+                                    <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{orderform.category.label}}</label>
+                                </div>
+                            </div>
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                                {{orderform.amount}}
+                                <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{orderform.amount.label}}</label>
+                            </div>
                         </div>
+
                     </div>
-                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{orderform.category}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{orderform.category.label}}</label>
-                        </div>
-                    </div>
-                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{orderform.amount}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{orderform.amount.label}}</label>
-                        </div>
+                    <div class="col-2 pe-0 ps-0 pt-3 text-center">
+                         <div class="d-inline-block px-2">
+                             <a href="#" class="icon icon-xxs bg-green-dark rounded-xl"><i class="fa fa-plus"></i></a><br>
+                             <span class="font-10">Add</span>
+                         </div>
+                          <div class="d-inline-block px-2">
+                             <a href="#" class="icon icon-xxs bg-blue-dark rounded-xl"><i class="fa fa-eye"></i></a><br>
+                             <span class="font-10">View</span>
+                         </div>
                     </div>
 
+                </div>
                 <button type="submit" name="save_order" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
-                </form>
+            </form>
             </div>
      </div>
 
@@ -255,10 +284,12 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                       <div class="input-style input-style-always-active validate-field no-borders">
-                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{safeform.date}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{safeform.date.label}}</label>
-                        </div>
+                          <select id="form5" name="dateSelect">
+                        <option value="default" disabled="" selected="">Select a Value</option>
+                        {% for x in this_week %}
+                            <option value="{{ x.id }}">{{ x.date | date }}</option>
+                        {% endfor %}
+                    </select>
                     </div>
 
                     <div class="input-style input-style-always-active validate-field no-borders no-icon">
@@ -323,6 +354,72 @@
                 <button type="submit" name="save_safe" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
                 </form>
             </div>
+     </div>
+
+     <div id="menu-user"
+         class="menu menu-box-right"
+         data-menu-width="cover"
+         data-menu-effect="menu-over">
+         <div class="content text-center">
+             <a href="#" class="close-menu icon icon-m mt-n2 notch-clear position-absolute start-0 color-theme"><i class="fa fa-chevron-left"></i></a>
+             <h1 class="font-800 font-20 mt-3 mb-n1">Z Read Submissions</h1>
+             <span class="d-block pb-3 font-11">Submissions from the past month</span>
+             <div class="d-inline-block px-2">
+                 <a href="#" class="icon icon-xxs bg-highlight rounded-xl"><i class="fa fa-arrow-up"></i></a><br>
+                 <span class="font-10">Expenses</span>
+             </div>
+             <div class="d-inline-block px-2">
+                 <a href="#" class="icon icon-xxs bg-yellow-dark rounded-xl"><i class="fa fa-plus"></i></a><br>
+                 <span class="font-10">Income</span>
+             </div>
+             <div class="d-inline-block px-2">
+                 <a href="#" class="icon icon-xxs bg-blue-dark rounded-xl"><i class="fa fa-sync"></i></a><br>
+                 <span class="font-10">Deposits</span>
+             </div>
+             <div class="d-inline-block px-2">
+                <a href="#" class="icon icon-xxs bg-brown-dark rounded-xl"><i class="fa fa-shopping-cart"></i></a><br>
+                <span class="font-10">Orders</span>
+            </div>
+            <div class="d-inline-block px-2">
+                <a href="#" class="icon icon-xxs bg-teal-dark rounded-xl"><i class="fa fa-vault"></i></a><br>
+                <span class="font-10">Safe Count</span>
+            </div>
+
+
+            <div class="list-group list-custom-small text-start list-icon-0 pt-3">
+                <table class="table table-borderless text-center rounded-sm shadow-l" style="overflow: hidden;">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Date</th>
+                            <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Wet</th>
+                            <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Dry</th>
+                            <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">PDQ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-dark-light">
+                            <th scope="row">Jan 24</th>
+                            <td>&pound;500.45</td>
+                            <td>&pound;50.78</td>
+                            <td>&pound;200</td>
+                        </tr>
+                        <tr class="bg-dark-light">
+                            <th scope="row">Jan 25</th>
+                            <td>&pound;500.45</td>
+                            <td>&pound;50.78</td>
+                            <td>&pound;200</td>
+                        </tr>
+                        <tr class="bg-dark-light">
+                            <th scope="row">Jan 26</th>
+                            <td>&pound;500.45</td>
+                            <td>&pound;50.78</td>
+                            <td>&pound;200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <a href="#" class="close-menu btn btn-l btn-full shadow-l rounded-m bg-blue-dark text-uppercase font-800 mt-4">Back to Chat</a>
+         </div>
      </div>
 
      <script>

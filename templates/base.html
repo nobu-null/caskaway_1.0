@@ -17,7 +17,7 @@
 <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
 </head>
     
-<body class="theme-dark" data-highlight="highlight-red" data-gradient="body-default">
+<body class="theme-light" data-highlight="highlight-red" data-gradient="body-default">
 
 <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
     
@@ -25,9 +25,11 @@
 
     {% block menuTop %}
         <div class="header header-fixed header-logo-center">
+
             <a href="{% url 'index' %}" class="header-title">Caskaway Pubs</a>
             <a href="#" data-back-button class="header-icon header-icon-1"><i class="fas fa-arrow-left"></i></a>
             <a href="#" data-menu="menu-sidebar" class="header-icon header-icon-4"><i class="fa fa-align-left font-12 color-gray-dark"></i></a>
+
         </div>
     {% endblock %}
 
@@ -82,7 +84,7 @@
                     </div>
                 </div>
             </div>
-
+<a href="#" data-toggle-theme="" class="header-icon header-icon-4"><i class="fas fa-lightbulb"></i></a>
             <div class="divider divider-margins mb-0"></div>
 
             <div class="me-3 ms-3">

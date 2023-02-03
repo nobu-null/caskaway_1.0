@@ -1,17 +1,18 @@
 from django import forms
-from .models import Epos, Expenses, Income, Deposits, Orders, SafeCount
-
+from .models import Epos, Expenses, Income, Deposits, Orders, SafeCount, DateTable
+import datetime
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
 
+
 class EposForm(forms.ModelForm):
+
     class Meta:
         model = Epos
-        fields = ['date', 'wet', 'dry', 'pdq']
+        fields = ['wet', 'dry', 'pdq']
         widgets = {
-            'date': DateInput(attrs={'class': 'form-control'}),
             'wet': forms.NumberInput(attrs={'class': 'form-control validate-number', 'id': 'f3', 'value': '0',
                                             'onClick': 'this.select();'}),
             'dry': forms.NumberInput(attrs={'class': 'form-control validate-number', 'id': 'f3', 'value': '0',
@@ -24,9 +25,8 @@ class EposForm(forms.ModelForm):
 class ExpensesForm(forms.ModelForm):
     class Meta:
         model = Expenses
-        fields = ['date', 'where', 'category', 'item', 'amount']
+        fields = ['where', 'category', 'item', 'amount']
         widgets = {
-            'date': DateInput(),
             'where': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Please Select'}),
             'item': forms.TextInput(attrs={'class': 'form-control'}),
@@ -37,9 +37,8 @@ class ExpensesForm(forms.ModelForm):
 class IncomeForm(forms.ModelForm):
     class Meta:
         model = Income
-        fields = ['date', 'category', 'description', 'amount']
+        fields = ['category', 'description', 'amount']
         widgets = {
-            'date': DateInput(),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'description': forms.TextInput(attrs={'class': 'form-control'}),
             'amount': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -49,9 +48,8 @@ class IncomeForm(forms.ModelForm):
 class DepositForm(forms.ModelForm):
     class Meta:
         model = Deposits
-        fields = ['date', 'who', 'category', 'amount']
+        fields = ['who', 'category', 'amount']
         widgets = {
-            'date': DateInput(),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'who': forms.TextInput(attrs={'class': 'form-control'}),
             'amount': forms.NumberInput(attrs={'class': 'form-control'}),
@@ -61,9 +59,8 @@ class DepositForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Orders
-        fields = ['date', 'category',  'amount']
+        fields = ['category',  'amount']
         widgets = {
-            'date': DateInput(),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'amount': forms.NumberInput(attrs={'class': 'form-control'}),
         }
@@ -72,10 +69,9 @@ class OrderForm(forms.ModelForm):
 class SafeCountForm(forms.ModelForm):
     class Meta:
         model = SafeCount
-        fields = ['date', 'fifty_pound', 'twenty_pound', 'ten_pound', 'five_pound', 'one_pound',
+        fields = ['fifty_pound', 'twenty_pound', 'ten_pound', 'five_pound', 'one_pound',
                   'fifty_pence', 'twenty_pence', 'ten_pence', 'five_pence', 'coppers' ]
         widgets = {
-            'date': DateInput(),
             'fifty_pound': forms.NumberInput(attrs={'class': 'form-control', 'value': '0', 'onClick': 'this.select();'}),
             'twenty_pound': forms.NumberInput(attrs={'class': 'form-control', 'value': '0', 'onClick': 'this.select();'}),
             'ten_pound': forms.NumberInput(attrs={'class': 'form-control', 'value': '0', 'onClick': 'this.select();'}),

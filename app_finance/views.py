@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from .forms import EposForm, ExpensesForm, IncomeForm, DepositForm, OrderForm, SafeCountForm
 from django.http import HttpResponseRedirect
 from app_finance.models import Sites
-from .models import Epos, Expenses, ExpensesCategory, IncomeCategory, DepositCategory, OrderCategory, Deposits, Targets
+from .models import Epos, Expenses, ExpensesCategory, IncomeCategory, DepositCategory, OrderCategory, Deposits, Targets, DateTable
 from django.db.models import Sum
 import pandas as pd
+import datetime
 
 
 @login_required(login_url='login_users')
@@ -28,57 +29,74 @@ def index(request):
     else:
         balance = i - e
 
+    todays_date = datetime.date.today()
+    week = todays_date.isocalendar().week
+    year = todays_date.isocalendar().year
+    this_week = DateTable.objects.filter(week=week, year=year)
+
     if 'save_epos' in request.POST:
         form = EposForm(request.POST)
+        date = request.POST.get('dateSelect')
         if form.is_valid():
             x = form.save(commit=False)
             x.site_id = site
             x.user_id = user
+            x.date_id = date
             x.save()
             return HttpResponseRedirect('/finance/')
 
     if 'save_expenses' in request.POST:
         form = ExpensesForm(request.POST)
+        date = request.POST.get('dateSelect')
         if form.is_valid():
             x = form.save(commit=False)
             x.site_id = site
             x.user_id = user
+            x.date_id = date
             x.save()
             return HttpResponseRedirect('/finance/')
 
     if 'save_income' in request.POST:
         form = IncomeForm(request.POST)
+        date = request.POST.get('dateSelect')
         if form.is_valid():
             x = form.save(commit=False)
             x.site_id = site
             x.user_id = user
+            x.date_id = date
             x.save()
             return HttpResponseRedirect('/finance/')
 
     if 'save_deposit' in request.POST:
         form = DepositForm(request.POST)
+        date = request.POST.get('dateSelect')
         if form.is_valid():
             x = form.save(commit=False)
             x.site_id = site
             x.user_id = user
+            x.date_id = date
             x.save()
             return HttpResponseRedirect('/finance/')
 
     if 'save_order' in request.POST:
         form = OrderForm(request.POST)
+        date = request.POST.get('dateSelect')
         if form.is_valid():
             x = form.save(commit=False)
             x.site_id = site
             x.user_id = user
+            x.date_id = date
             x.save()
             return HttpResponseRedirect('/finance/')
 
     if 'save_safe' in request.POST:
         form = SafeCountForm(request.POST)
+        date = request.POST.get('dateSelect')
         if form.is_valid():
             x = form.save(commit=False)
             x.site_id = site
             x.user_id = user
+            x.date_id = date
             x.save()
             return HttpResponseRedirect('/finance/')
 
@@ -95,6 +113,8 @@ def index(request):
         orderform.fields["category"].queryset = OrderCategory.objects.filter(group_id=site)
         safeform = SafeCountForm
 
+
+
     context = {
         'eposform': eposform,
         'expensesform': expensesform,
@@ -107,6 +127,9 @@ def index(request):
         'expenses': expenses,
         'balance': balance,
         'deposits': deposits,
+        'this_week': this_week,
+
+
     }
     return render(request, "app_finance/index.html", context)
 
