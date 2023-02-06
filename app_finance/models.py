@@ -17,6 +17,7 @@ class DateTable(models.Model):
     def __str__(self):
         return f'{self.date}'
 
+
 class AgreementType(models.Model):
     type = models.CharField(max_length=150)
 
@@ -142,55 +143,34 @@ class SafeCount(models.Model):
         return f'{self.site} - {self.date}'
 
 
-class DepositCategory(models.Model):
-    group = models.ForeignKey(PubGroup, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-
-    class Meta:
-        verbose_name_plural = "deposit_categories"
-
-    def __str__(self):
-        return f'{self.name} - {self.group}'
-
-
-class Deposits(models.Model):
+class DepositsTaken(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
     date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
     who = models.CharField(max_length=255)
-    category = models.ForeignKey(DepositCategory, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    notes = models.TextField()
+    amount_in = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        verbose_name_plural = "deposits"
+        verbose_name_plural = "deposits_taken"
 
     def __str__(self):
-        return f'{self.site} - {self.date} - {self.amount}'
+        return f'{self.who}'
 
 
-class OrderCategory(models.Model):
-    group = models.ForeignKey(PubGroup, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-
-    class Meta:
-        verbose_name_plural = "order_categories"
-
-    def __str__(self):
-        return f'{self.name} - {self.group}'
-
-
-class Orders(models.Model):
+class DepositsReturned(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
     date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
-    category = models.ForeignKey(OrderCategory, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    who = models.ForeignKey(DepositsTaken, on_delete=models.CASCADE)
+    notes = models.TextField()
+    amount_out = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        verbose_name_plural = "orders"
+        verbose_name_plural = "deposits_returned"
 
     def __str__(self):
-        return f'{self.site} - {self.category} - {self.amount}'
+        return f'{self.who}'
 
 
 class Targets(models.Model):
@@ -201,25 +181,31 @@ class Targets(models.Model):
     class Meta:
         verbose_name_plural = "targets"
 
-        def __str__(self):
-            return '{self.target}'
+    def __str__(self):
+        return f'{self.target}'
 
 
 class Staff(models.Model):
+    class Position(models.TextChoices):
+        BAR_STAFF = 'BS', 'Bar Staff'
+        BAR_BACK = 'BB', 'Bar Back'
+        CLEANER = 'CL', 'Cleaner'
+        ASSISTANT_MANAGER = 'AM', 'Assistant Manager'
+        MANAGER = 'MA', 'Manager'
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     site = models.ForeignKey(Sites, on_delete=models.CASCADE)
-    f_name = models.CharField(max_length=50)
-    l_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     email = models.CharField(max_length=150)
-    position = models.CharField(max_length=100)
+    position = models.CharField(max_length=2, choices=Position.choices, default=Position.BAR_STAFF,)
     salary = models.DecimalField(max_digits=10, decimal_places=2)
-    hours = models.IntegerField()
 
     class Meta:
         verbose_name_plural = "Staff"
 
-        def __str__(self):
-            return {self.f_name}, {self.position}
+    def __str__(self):
+        return f'{self.first_name} {self.last_name} - {self.position} - {self.salary}'
 
 
 class HoursWorked(models.Model):
@@ -228,9 +214,28 @@ class HoursWorked(models.Model):
     date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
     staff_member = models.ForeignKey(Staff, on_delete=models.CASCADE)
     hours_worked = models.FloatField()
+    wage = models.FloatField()
 
     class Meta:
         verbose_name_plural = "hours_worked"
 
-        def __str__(self):
-            return f'{self.staff_member} - {self.hours_worked}'
+    def __str__(self):
+        return f'{self.staff_member} - {self.hours_worked}'
+
+
+class CashHandover(models.Model):
+    class Handover(models.TextChoices):
+        IN_PERSON = 'IP', 'In Person'
+        BANK = 'BK', 'Bank'
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    site = models.ForeignKey(Sites, on_delete=models.CASCADE)
+    date = models.ForeignKey(DateTable, on_delete=models.CASCADE)
+    category = models.CharField(max_length=2, choices=Handover.choices, default=Handover.IN_PERSON,)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name_plural = "cash_handover"
+
+    def __str__(self):
+        return f'{self.site} - {self.amount}'

@@ -6,57 +6,158 @@
                 <i class="fa fa-bullseye"></i><span>Targets</span></a>
             <a href="{% url 'financeHome' %}" class="{% if navbar == 'finance' %}active-nav{% endif %}">
                 <i class="fa fa-wallet"></i><span>Cash Flow</span><strong></strong></a>
-            <a href="{% url 'summary' %}" class="{% if navbar == 'summary' %}active-nav{% endif %}">
+            <a href="#" data-menu="menu-group-summary" class="{% if navbar == 'summary' %}active-nav{% endif %}">
                 <i class="fa fa-chart-line"></i><span>Summary</span></a>
-
         </div>
     {% endblock %}
 {% block content %}
-
+<div class="card card-style">
+            <div class="content mb-0">
+                <h4 class="font-700 text-uppercase font-15 mb-3 mt-n2">Operating Capital = <span class="color-blue-dark">27%</span></h4>
+                <div class="d-flex">
+                    <div class="pe-2 align-self-center">
+                        <p class="font-600 color-highlight mb-n1 font-20">Balance</p>
+                        <h1 class="mb-2 {% if balance < 0 %}color-red-light{% endif %}">&pound;{{ balance | floatformat:2 }}</h1>
+                    </div>
+                    <div class="w-100 align-self-center ps-3">
+                        <h6 class="font-14 font-700">Revenue<span class="float-end color-green-dark">&pound;{{ revenue | floatformat:2 }}</span></h6>
+                        <div class="divider mb-2 mt-1"></div>
+                        <h6 class="font-14 font-700">Expenses<span class="float-end color-red-dark">&pound;{{ expenses.sum | floatformat:2 }}</span></h6>
+                    </div>
+                </div>
+                <div class="divider mt-2 mb-3"></div>
+                <div class="row mb-0">
+                    <div class="col-4">
+                        <div class="mx-0 mb-3">
+                            <h6 class="font-10 font-800 text-uppercase opacity-30">Cash On-Site</h6>
+                            <h3 class="color-green-dark font-18 mb-0">&pound;{{ cashonsite | floatformat:2 }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="mx-0 mb-3">
+                            <h6 class="font-10 font-800 text-uppercase opacity-30">Staff Costs</h6>
+                            <h3 class="color-red-dark font-18 mb-0">&pound;{{ wage }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-4 pe-3 text-end">
+                        <div class="mx-0 mb-3">
+                            <h6 class="font-10 font-800 text-uppercase opacity-30">Deposits</h6>
+                            <h3 class="color-blue-dark font-18 mb-0">&pound;{{ deposits }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <!--  Financial Buttons  -->
         <div class="row text-center mb-0 mt-n2">
-            <a href="#" data-menu="page-zreads" class="col-6 pe-0">
-                <div class="card card-style me-2 mb-3">
-                    <i class="fa fa-arrow-down color-green-dark fa-2x mt-4"></i>
-                    <h1 class="pt-2 font-18">Z Reads</h1>
-                    <p class="font-11 opacity-50 mt-n2 mb-3">Submit Daily Z Reads</p>
+            <div class="col-12 px-3">
+                <a href="#" data-menu="page-zreads">
+                    <div class="card card-style me-3 mb-3">
+                        <i class="fa fa-arrow-down color-green-dark fa-2x mt-4"></i>
+                        <h1 class="pt-1 pb-2 font-18">Z Reads</h1>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 px-3">
+                <div class="card card-style mb-3">
+                    <div class="row me-0 ms-0 mb-0">
+                        <div class="col-5 ps-0 pe-0 mt-4">
+                             <i class="fa fa-plus-minus color-magenta-dark fa-2x mt-2"></i>
+                            <h1 class="pt-1 font-18">Cash Flow</h1>
+                        </div>
+                        <div class="row col-7 me-0 ms-0 mb-0">
+                            <div class="col-12 ps-0 pe-0 mb-1">
+                                <a href="#" data-menu="page-expenses" class="btn btn-m btn-full mt-3 rounded-xs text-uppercase font-700 shadow-s bg-red-dark btn-icon text-start">
+                                    <i class="fa fa-minus font-15 text-center"></i>
+                                   Expenses
+                                </a>
+                            </div>
+                            <div class="col-12 ps-0 pe-0 mb-3">
+                                <a href="#" data-menu="page-income" class="btn btn-m btn-full rounded-xs text-uppercase font-700 shadow-s bg-yellow-dark btn-icon text-start">
+                                    <i class="fa fa-plus font-15 text-center"></i>
+                                    Income
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </a>
-            <a href="#" data-menu="page-expenses" class="col-6 ps-0">
-                <div class="card card-style ms-2 mb-3">
-                    <i class="fa fa-arrow-up color-highlight fa-2x mt-4"></i>
-                    <h1 class="pt-2 font-18">Expenses</h1>
-                    <p class="font-11 opacity-50 mt-n2 mb-3">Add Expense</p>
+            </div>
+            <div class="col-12 px-3">
+                <div class="card card-style mb-3">
+                    <div class="row me-0 ms-0 mb-0">
+                        <div class="col-5 ps-0 pe-0 mt-4">
+                             <i class="fa fa-sync color-blue-dark fa-2x mt-2"></i>
+                            <h1 class="pt-1 font-18">Deposits</h1>
+                        </div>
+                        <div class="row col-7 me-0 ms-0 mb-0">
+                            <div class="col-12 ps-0 pe-0 mb-1">
+                                <a href="#" data-menu="page-deposits" class="btn btn-m btn-full mt-3 rounded-xs text-uppercase font-700 shadow-s bg-green-dark btn-icon text-start">
+                                    <i class="fa fa-plus font-15 text-center"></i>
+                                   Taken
+                                </a>
+                            </div>
+                            <div class="col-12 ps-0 pe-0 mb-3">
+                                <a href="#" data-menu="page-depositsReturned" class="btn btn-m btn-full rounded-xs text-uppercase font-700 shadow-s bg-red-dark btn-icon text-start">
+                                    <i class="fa fa-minus font-15 text-center"></i>
+                                    Returned
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </a>
-            <a href="#" data-menu="page-income" class="col-6 pe-0">
-                <div class="card card-style me-2 mb-3">
-                    <i class="fa fa-plus color-yellow-dark fa-2x mt-4"></i>
-                    <h1 class="pt-2 font-18">Income</h1>
-                    <p class="font-11 opacity-50 mt-n2 mb-3">Add Additional Income</p>
+            </div>
+            <div class="col-12 px-3">
+                <div class="card card-style mb-3">
+                    <div class="row me-0 ms-0 mb-0">
+                        <div class="col-5 ps-0 pe-0 mt-4">
+                            <i class="fa fa-users color-brown-dark fa-2x mt-2"></i>
+                            <h1 class="pt-1 font-18">Staff</h1>
+                        </div>
+                        <div class="row col-7 me-0 ms-0 mb-0">
+                            <div class="col-12 ps-0 pe-0 mb-1">
+                                <a href="#" data-menu="page-rota" class="btn btn-m btn-full mt-3 rounded-xs text-uppercase font-700 shadow-s bg-green-dark btn-icon text-start">
+                                    <i class="fa fa-plus font-15 text-center"></i>
+                                   Hours
+                                </a>
+                            </div>
+                            <div class="col-12 ps-0 pe-0 mb-3">
+                                <a href="#" data-menu="page-staff" class="btn btn-m btn-full rounded-xs text-uppercase font-700 shadow-s bg-blue-dark btn-icon text-start">
+                                    <i class="fa fa-plus font-15 text-center"></i>
+                                    Staff
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </a>
-            <a href="#" data-menu="page-deposits" class="col-6 ps-0">
-                <div class="card card-style ms-2 mb-3">
-                    <i class="fa fa-sync color-blue-dark fa-2x mt-4"></i>
-                    <h1 class="pt-2 font-18">Deposits</h1>
-                    <p class="font-11 opacity-50 mt-n2 mb-3">Take/Return Deposits</p>
+            </div>
+            <div class="col-12 px-3">
+                <div class="card card-style mb-3">
+                    <div class="row me-0 ms-0 mb-0">
+                        <div class="col-5 ps-0 pe-0 mt-4">
+                            <i class="fa fa-vault color-teal-dark fa-2x mt-2"></i>
+                            <h1 class="pt-1 font-18">Holding</h1>
+                        </div>
+                        <div class="row col-7 me-0 ms-0 mb-0">
+                            <div class="col-12 ps-0 pe-0 mb-1">
+                                <a href="#" data-menu="page-cash" class="btn btn-m btn-full mt-3 rounded-xs text-uppercase font-900 shadow-s bg-green-dark btn-icon text-start">
+                                    <i class="fa fa-coins font-15 text-center"></i>
+                                    Count
+                                </a>
+                            </div>
+                            <div class="col-12 ps-0 pe-0 mb-3">
+                                <a href="#" data-menu="page-handover" class="btn btn-m btn-full rounded-xs text-uppercase font-900 shadow-s bg-yellow-dark btn-icon text-start">
+                                    <i class="fa fa-bank font-15 text-center"></i>
+                                    Handover
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </a>
-            <a href="#" data-menu="page-rota" class="col-6 pe-0">
-                <div class="card card-style me-2 mb-3">
-                    <i class="fa fa-users color-brown-dark fa-2x mt-4"></i>
-                    <h1 class="pt-2 font-18">Rotas</h1>
-                    <p class="font-11 opacity-50 mt-n2 mb-3">Add Staff Hours</p>
-                </div>
-            </a>
-            <a href="#" data-menu="page-cash" class="col-6 ps-0">
-                <div class="card card-style ms-2 mb-3">
-                    <i class="fa fa-vault color-teal-dark fa-2x mt-4"></i>
-                    <h1 class="pt-2 font-18">Cash Handling</h1>
-                    <p class="font-11 opacity-50 mt-n2 mb-3">Count and Confirm Cash</p>
-                </div>
-            </a>
+            </div>
         </div>
 
 
@@ -189,15 +290,15 @@
             </div>
      </div>
 
-      <div id="page-deposit" class="menu menu-box-bottom menu-box-detached" style="display: block;">
-        <div class="menu-title"><h1>Deposits</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+      <div id="page-deposits" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Deposits Taken</h1><p class="color-highlight">Enter Deposit Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
         <div class="divider divider-margins mt-3 mb-3"></div>
             <div class="content px-1">
                 <form action="" method="POST">
                     {% csrf_token %}
-                      <div class="input-style input-style-always-active validate-field no-borders">
+                    <div class="input-style input-style-always-active validate-field no-borders">
                         <select id="form5" name="dateSelect">
-                        <option value="default" disabled="" selected="">Select a Value</option>
+                        <option value="default" disabled="" selected="">Select Date</option>
                         {% for x in this_week %}
                             <option value="{{ x.id }}">{{ x.date | date }}</option>
                         {% endfor %}
@@ -217,12 +318,62 @@
                     </div>
                     <div class="input-style input-style-always-active validate-field no-borders no-icon">
                         <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                            {{depositform.amount}}
-                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositform.amount.label}}</label>
+                            {{depositform.amount_in}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositform.amount_in.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositform.notes}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositform.notes.label}}</label>
                         </div>
                     </div>
 
                 <button type="submit" name="save_deposit" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
+                </form>
+            </div>
+     </div>
+
+     <div id="page-depositsReturned" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Deposits Returned</h1><p class="color-highlight">Enter Deposit Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+            <div class="content px-1">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="input-style input-style-always-active validate-field no-borders">
+                        <select id="form5" name="dateSelect">
+                        <option value="default" disabled="" selected="">Select Date</option>
+                        {% for x in this_week %}
+                            <option value="{{ x.id }}">{{ x.date | date }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositreturned.category}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositreturned.category.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositreturned.who}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositreturned.who.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositreturned.amount_out}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositreturned.amount_out.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{depositreturned.notes}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{depositreturned.notes.label}}</label>
+                        </div>
+                    </div>
+
+                <button type="submit" name="save_depositReturned" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
                 </form>
             </div>
      </div>
@@ -235,9 +386,7 @@
         <div class="divider divider-margins mt-3 mb-3"></div>
             <div class="content px-1">
             <form action="" method="POST">
-
                 {% csrf_token %}
-
                     <div class="input-style input-style-always-active validate-field no-borders">
                         <select id="form5" name="dateSelect">
                             <option value="default" disabled="" selected="">Select Date</option>
@@ -258,29 +407,20 @@
                             <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{hoursworked.hours_worked.label}}</label>
                         </div>
                     </div>
-
-             <div class="row me-0 ms-0 mb-0">
-                    <div class="col-10 ps-0 pe-1">
-                            <button type="submit" name="save_hours" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit Hours</button>
-                    </div>
-                    <div class="col-2 ps-1 pe-0">
-                           <button type="submit" class="btn btn-full btn-m bg-blue-dark rounded-sm text-uppercase font-800 mb-4">Add Staff</button>
-                    </div>
-
-                </div>
+                <button type="submit" name="save_hours" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit Hours</button>
             </form>
             </div>
      </div>
 
       <div id="page-cash" class="menu menu-box-bottom menu-box-detached" style="display: block;">
-        <div class="menu-title"><h1>Income</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="menu-title"><h1>Cash In Safe</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
         <div class="divider divider-margins mt-3 mb-3"></div>
             <div class="content px-1">
                 <form action="" method="POST">
                     {% csrf_token %}
                       <div class="input-style input-style-always-active validate-field no-borders">
                           <select id="form5" name="dateSelect">
-                        <option value="default" disabled="" selected="">Select a Value</option>
+                        <option value="default" disabled="" selected="">Select Date</option>
                         {% for x in this_week %}
                             <option value="{{ x.id }}">{{ x.date | date }}</option>
                         {% endfor %}
@@ -288,7 +428,7 @@
                     </div>
 
                     <div class="input-style input-style-always-active validate-field no-borders no-icon">
-                        <div class="row">
+                        <div class="row mb-n2">
                             <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
                                 {{safeform.fifty_pound}}
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;50</label>
@@ -299,7 +439,7 @@
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;20</label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-n2">
                             <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
                                 {{safeform.ten_pound}}
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;10</label>
@@ -310,7 +450,7 @@
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;5</label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-n2">
                             <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
                                 {{safeform.one_pound}}
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">&pound;1</label>
@@ -321,7 +461,7 @@
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">50p</label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-n2">
                             <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
                                 {{safeform.twenty_pence}}
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">20p</label>
@@ -332,7 +472,7 @@
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">10p</label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-n2">
                             <div class="input-style input-style-always-active validate-field no-borders no-icon col-6">
                                 {{safeform.five_pence}}
                                 <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">5p</label>
@@ -351,10 +491,84 @@
             </div>
      </div>
 
+     <div id="page-staff" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Add Staff Member</h1><p class="color-highlight">Enter Transaction Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+           <div class="content px-1">
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{staffform.first_name}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{staffform.first_name.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{staffform.last_name}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{staffform.last_name.label}}</label>
+                        </div>
+                    </div>
+                <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{staffform.email}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{staffform.email.label}}</label>
+                        </div>
+                    </div>
+                <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{staffform.position}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{staffform.position.label}}</label>
+                        </div>
+                    </div>
+                <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{staffform.salary}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{staffform.salary.label}}</label>
+                        </div>
+                    </div>
+                <button type="submit" name="save_staff" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit Hours</button>
+            </form>
+            </div>
+     </div>
+
+     <div id="page-handover" class="menu menu-box-bottom menu-box-detached" style="display: block;">
+        <div class="menu-title"><h1>Cash Handover</h1><p class="color-highlight">Enter Details</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="divider divider-margins mt-3 mb-3"></div>
+           <div class="content px-1">
+            <form action="" method="POST">
+                {% csrf_token %}
+                     <div class="input-style input-style-always-active validate-field no-borders">
+                        <select id="form5" name="dateSelect">
+                        <option value="default" disabled="" selected="">Select Date</option>
+                        {% for x in this_week %}
+                            <option value="{{ x.id }}">{{ x.date | date }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{cashhandover.category}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{cashhandover.category.label}}</label>
+                        </div>
+                    </div>
+                    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+                            {{cashhandover.amount}}
+                            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{cashhandover.amount.label}}</label>
+                        </div>
+                    </div>
+
+                <button type="submit" name="save_handover" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Submit</button>
+            </form>
+            </div>
+     </div>
+
 
      <script>
-     $(function(){
-        $(document).on('click','input[type=text]',function(){ this.select(); });
-    });
-</script>
+         $(function(){
+            $(document).on('click','input[type=text]',function(){ this.select(); });
+        });
+    </script>
  {% endblock %}

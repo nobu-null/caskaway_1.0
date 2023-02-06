@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Caskaway Hours Summary{% endblock %}
+{% block menuBottom %}
+       <div id="footer-bar" class="footer-bar-2">
+            <a href="{% url 'targets' %}" class="{% if navbar == 'targets' %}active-nav{% endif %}">
+                <i class="fa fa-bullseye"></i><span>Targets</span></a>
+            <a href="{% url 'financeHome' %}" class="{% if navbar == 'finance' %}active-nav{% endif %}">
+                <i class="fa fa-wallet"></i><span>Cash Flow</span><strong></strong></a>
+            <a href="#" data-menu="menu-group-summary" class="{% if navbar == 'summary' %}active-nav{% endif %}">
+                <i class="fa fa-chart-line"></i><span>Summary</span></a>
+        </div>
+    {% endblock %}
+{% block content %}
+    <div class="ps-3 pe-3 mt-4 text-center">
+        <h1 class="font-800 font-25 mb-1">Staff Hours</h1>
+        <p class="color-highlight font-15 mt-2">Staffing Hours and Cost</p>
+
+    </div>
+    <hr>
+    <div class="ps-3 pe-3">
+
+    <table class="table table-borderless text-center rounded-sm shadow-l" style="overflow: hidden;">
+        <thead>
+            <tr>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Date</th>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Staff</th>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Hours</th>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Wages</th>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="bg-dark-light">
+       {% for x in hours_pages %}
+            <tr>
+                <th scope="row">{{ x.date.date|date:"d M" }}</th>
+                <td>{{ x.staff_member.first_name }}</td>
+                <td>{{ x.hours_worked }}</td>
+                <td>&pound;{{ x.wage }}</td>
+                <td><a href="{% url 'update-epos' x.id %}" id="{{ x.id }}" class="btn btn-xxs shadow-sm text-uppercase font-800 bg-blue-dark">Edit</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% if hours_pages.has_previous %}
+    <a href="?page=1">&laquo; First</a>
+    <a href="?page={{ hours_pages.previous_page_number }}">Previous</a>
+    {% endif %}
+    Page {{ hours_pages.number }} of {{ hours_pages.paginator.num_pages }}
+    {% if hours_pages.has_next %}
+    <a href="?page={{ hours_pages.next_page_number }}">next</a>
+    <a href="?page={{ hours_pages.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+    <hr>
+    <br>
+
+    
+{% endblock %}
+
+{% block offCanvas %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

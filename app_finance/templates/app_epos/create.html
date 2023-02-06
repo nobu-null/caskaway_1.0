@@ -1,0 +1,29 @@
+
+
+<div class="container">
+<div class="row">
+    <div class="col-10">
+     <h2>Submit Reads for: {{ date.date|date:"l d M " }}</h2>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-sm btn-light btn-block" type="button" hx-get="{% url 'create-epos-form' %}" hx-target="#eposforms" hx-swap="afterend">Add till</button>
+    </div>
+
+  </div>
+     <hr>
+
+
+<div>
+    {% for epos in epos %}
+
+    {% include "app_epos/details.html" %}
+
+    {% endfor %}
+
+</div>
+
+<div id="eposforms" ></div>
+
+</div>
+
+

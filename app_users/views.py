@@ -13,7 +13,7 @@ def login_user(request):
             # Redirect to a success page.
             return redirect('financeHome')
         else:
-            messages.add_message(request, messages.INFO, "There was an error loging in, please try again")
+            messages.add_message(request, messages.ERROR, "There was an error loging in, please try again")
             return redirect('login_users')
 
     else:
@@ -22,6 +22,6 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    messages.add_message(request, messages.INFO, "Logged Out")
+    messages.add_message(request, messages.INFO, "You've been Logged Out")
     return redirect('login_users')
 

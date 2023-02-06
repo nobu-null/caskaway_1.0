@@ -11,10 +11,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" type="text/css" href="{% static 'fonts/css/fontawesome-all.min.css' %}">
 <link rel="manifest" href="{% static '_manifest.json' %}" data-pwa-version="set_in_manifest_and_pwa_js">
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'app/icons/icon-192x192.png' %}">
 <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
+
 </head>
     
 <body class="theme-light" data-highlight="highlight-red" data-gradient="body-default">
@@ -46,15 +48,7 @@
     <!-- Messages -->
            {% if messages %}
                 {% for message in messages %}
-                    <div id="toast-3" class="toast toast-tiny toast-top bg-green-dark fade hide" data-bs-delay="1000" data-autohide="true">
-                        <i class="fa fa-check me-3"></i>{{ message }}
-                    </div>
-
-                    <div class="ms-3 me-3 mb-5 alert alert-small rounded-s shadow-xl bg-red-dark" role="alert" >
-                        <span><i class="fa fa-times"></i></span>
-                        <strong>{{ message }}</strong>
-                        <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">×</button>
-                    </div>
+                     <div id="snackbar-1" class="snackbar-toast rounded-m bg-highlight color-white" data-bs-delay="1500" data-bs-autohide="true"><i class="fa fa-sync fa-spin me-3"></i>{{ message }}</div>
                 {% endfor %}
            {% endif %}
     </div>
@@ -63,6 +57,39 @@
     {% block offCanvas %}
 
     {% endblock %}
+
+     <div id="menu-group-summary" class="menu menu-box-bottom menu-box-detached rounded-m"
+
+         data-menu-effect="menu-over">
+        <div class="list-group list-custom-small ps-2 me-4">
+            <a href="{% url 'epos-summary' %}">
+                <i class="font-14 fa fa-arrow-down color-green-dark"></i>
+                <span class="font-13">Z Reads</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="{% url 'expenses-summary' %}">
+                <i class="font-14 fa fa-arrow-up color-highlight"></i>
+                <span class="font-13">Expenses</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="{% url 'income-summary' %}">
+                <i class="font-14 fa fa-plus color-yellow-dark"></i>
+                <span class="font-13">Income</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="{% url 'deposits-summary' %}">
+                <i class="font-14 fa fa-sync color-blue-dark"></i>
+                <span class="font-13">Deposits</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="{% url 'hours-summary' %}">
+                <i class="font-14 fa fa-users color-teal-dark"></i>
+                <span class="font-13">Hours Worked</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+
     <!-- Sidebar 4 -->
 	<div id="menu-sidebar" class="menu menu-box-right menu-box-detached menu-sidebar" data-menu-width="310">
 		<div class="d-flex">
@@ -173,4 +200,7 @@
 
 <script type="text/javascript" src="{% static 'scripts/bootstrap.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'scripts/custom.js' %}"></script>
+{% block scripts %}
+
+{% endblock %}
 </body>

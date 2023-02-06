@@ -1,0 +1,19 @@
+<div class="container" hx-target="this">
+<div class="row" style="text-align: left;">
+    <div class="col-3">
+      <p>Wet: &pound;{{ epos.wet }}</p>
+    </div>
+    <div class="col-3">
+      <p>Dry: &pound;{{ epos.dry }}</p>
+    </div>
+    <div class="col-3">
+      <p>PDQ: &pound;{{ epos.pdq }}</p>
+    </div>
+    <div class="col-3">
+       <button class="btn btn-sm btn-outline-light me-3" hx-get="{% url 'update-epos' epos.id %}" hx-swap="innerHTML"> Update </button>
+       <button class="btn btn-sm btn-outline-light" hx-post="{% url 'delete-epos' epos.id %}" hx-swap="innerHTML ">Delete</button>
+    </div>
+
+  </div>
+
+</div>

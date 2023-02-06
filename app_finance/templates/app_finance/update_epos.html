@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Caskaway Update Epos{% endblock %}
+{% block menuBottom %}
+        <div id="footer-bar" class="footer-bar-2">
+            <a href="{% url 'targets' %}" class="{% if navbar == 'targets' %}active-nav{% endif %}">
+                <i class="fa fa-bullseye"></i><span>Targets</span></a>
+            <a href="{% url 'financeHome' %}" class="{% if navbar == 'finance' %}active-nav{% endif %}">
+                <i class="fa fa-wallet"></i><span>Cash Flow</span><strong></strong></a>
+            <a href="#" data-menu="menu-group-summary" class="{% if navbar == 'summary' %}active-nav{% endif %}">
+                <i class="fa fa-chart-line"></i><span>Summary</span></a>
+        </div>
+    {% endblock %}
+{% block content %}
+<div class="ps-3 pe-3">
+        <h1 class="font-800 font-40 mb-1">Update Epos</h1>
+ <p class="color-highlight font-15 mt-2">Update Z Read for {{ epos.date.date|date }}</p>
+<hr>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+            {{form.wet}}
+            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{form.wet.label}}</label>
+        </div>
+    </div>
+    <div class="input-style input-style-always-active validate-field no-borders no-icon">
+        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+            {{form.dry}}
+            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{form.dry.label}}</label>
+        </div>
+    </div>
+     <div class="input-style input-style-always-active validate-field no-borders no-icon">
+        <div class="input-style input-style-always-active validate-field no-borders no-icon">
+            {{form.pdq}}
+            <label for="f3" class="color-theme opacity-30 text-uppercase font-700 font-10 mt-1">{{form.pdq.label}}</label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-full btn-m bg-green-dark rounded-sm text-uppercase font-800 mb-4">Update</button>
+
+    <a href="{% url 'epos-summary' %}" class="btn shadow-bg shadow-bg-m btn-m btn-full mb-3 rounded-s text-uppercase font-900 shadow-s bg-blue-dark">Cancel</a>
+</form>
+</div>
+{% endblock %}
+
+ {% block offCanvas %}
+
+
+ {% endblock %}

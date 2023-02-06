@@ -1,0 +1,12 @@
+<div hx-target="this" hx-swap="innerHTML" >
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        {% if epos %}
+            <button class="btn btn-sm btn-outline-light" type="submit" hx-post="{% url 'update-epos' epos.id %}"> Update </button>
+            <button class="btn btn-sm btn-outline-light" hx-get="{% url 'detail-epos' epos.id %}" type="button"> Cancel </button>
+        {% else %}
+            <button class="btn btn-sm btn-outline-light" type="submit" hx-post="#" hx-include="[id='epos.id']"> Submit </button>
+        {% endif %}
+    </form>
+</div>

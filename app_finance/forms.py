@@ -1,6 +1,5 @@
 from django import forms
-from .models import Epos, Expenses, Income, Deposits, Orders, SafeCount, HoursWorked
-import datetime
+from .models import Epos, Expenses, Income, SafeCount, HoursWorked, DepositsTaken, DepositsReturned, Staff, CashHandover
 
 
 class EposForm(forms.ModelForm):
@@ -41,24 +40,25 @@ class IncomeForm(forms.ModelForm):
         }
 
 
-class DepositForm(forms.ModelForm):
+class DepositTakenForm(forms.ModelForm):
     class Meta:
-        model = Deposits
-        fields = ['who', 'category', 'amount']
+        model = DepositsTaken
+        fields = ['who', 'notes', 'amount_in']
         widgets = {
-            'category': forms.Select(attrs={'class': 'form-control'}),
             'who': forms.TextInput(attrs={'class': 'form-control'}),
-            'amount': forms.NumberInput(attrs={'class': 'form-control'}),
+            'amount_in': forms.NumberInput(attrs={'class': 'form-control'}),
+            'notes': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
 
-class OrderForm(forms.ModelForm):
+class DepositReturnedForm(forms.ModelForm):
     class Meta:
-        model = Orders
-        fields = ['category',  'amount']
+        model = DepositsReturned
+        fields = ['who', 'notes', 'amount_out']
         widgets = {
-            'category': forms.Select(attrs={'class': 'form-control'}),
-            'amount': forms.NumberInput(attrs={'class': 'form-control'}),
+            'who': forms.Select(attrs={'class': 'form-control'}),
+            'amount_out': forms.NumberInput(attrs={'class': 'form-control'}),
+            'notes': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
 
@@ -81,6 +81,19 @@ class SafeCountForm(forms.ModelForm):
         }
 
 
+class StaffForm(forms.ModelForm):
+    class Meta:
+        model = Staff
+        fields = ['first_name', 'last_name', 'email', 'position', 'salary']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'position': forms.Select(attrs={'class': 'form-control'}),
+            'salary': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+
 class HoursWorkedForm(forms.ModelForm):
     class Meta:
         model = HoursWorked
@@ -88,4 +101,14 @@ class HoursWorkedForm(forms.ModelForm):
         widgets = {
             'staff_member': forms.Select(attrs={'class': 'form-control'}),
             'hours_worked': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+
+class CashHandoverForm(forms.ModelForm):
+    class Meta:
+        model = CashHandover
+        fields = ['category', 'amount']
+        widgets = {
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'amount': forms.NumberInput(attrs={'class': 'form-control'}),
         }

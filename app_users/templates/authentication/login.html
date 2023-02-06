@@ -19,21 +19,11 @@
 <body class="theme-dark" data-highlight="highlight-red" data-gradient="body-default">
 
 <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
-
 <div id="page">
-     <div class="page-content header-clear-medium">
-         <!-- Messages -->
-           {% if messages %}
-                {% for message in messages %}
 
-                    <div id="message_container" class="alert alert-warning alert-dismissible fade show" role="alert">
-            <span><i class="fa fa-times"></i></span>
-            <strong>{{ message | safe }}</strong>
-            <button type="button" class="close color-white opacity-60 font-16" data-bs-dismiss="alert" aria-label="Close">×</button>
-        </div>
-                    {% endfor %}
-           {% endif %}
-                <div class="ps-5 pe-5">
+    <div class="page-content header-clear-medium">
+
+        <div class="ps-5 pe-5">
                     <h1 class="text-center font-800 font-40 mb-1">Sign In</h1>
                     <p class="color-highlight text-center font-12">Let's get you logged in</p>
 
@@ -62,17 +52,40 @@
 
                     </form>
                 </div>
-     </div>
+
+    </div>
+    <!-- End of Page Content-->
+
+    <!-- Messages -->
+       {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success'%}
+                <div id="snackbar" class="snackbar-toast rounded-m bg-green-dark color-white" data-bs-delay="1500" data-bs-autohide="true">
+                    <i class="fa fa-check me-3"></i>{{ message }}</div>
+            {% elif message.tags == 'info' %}
+                <div id="snackbar" class="snackbar-toast rounded-m bg-blue-dark color-white" data-bs-delay="1500" data-bs-autohide="true">
+                    <i class="fa fa-info me-3"></i>{{ message }}</div>
+            {% elif message.tags == 'warning' %}
+               <div id="snackbar" class="snackbar-toast rounded-m bg-yellow-dark color-white" data-bs-delay="1500" data-bs-autohide="true">
+                    <i class="fa fa-exclamation-triangle me-3"></i>{{ message }}</div>
+            {% elif message.tags == 'error' %}
+                <div id="snackbar" class="snackbar-toast rounded-m bg-highlight color-white" data-bs-delay="1500" data-bs-autohide="true">
+                    <i class="fa fa-times me-3"></i>{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
 </div>
+
+
 <script>
     // suppose the `id` attribute of element is `message_container`.
-var message_ele = document.getElementById("message_container");
+let message_ele = document.getElementById("snackbar");
 
-
-setTimeout(function(){
-   message_ele.style.display = "none";
-}, 3000);
-// Timeout is 3 sec, you can change it
+    setTimeout(function(){
+       message_ele.style.display = "none";
+    }, 3000);
+    // Timeout is 3 sec, you can change it
 
 </script>
 <script type="text/javascript" src="{% static 'scripts/bootstrap.min.js' %}"></script>

@@ -1,0 +1,5 @@
+{% for x in thisweek %}
+    <div>
+        <button id="dates_{{ forloop.counter }}" onclick="date_{{ forloop.counter }}()" class="btn btn-lg btn-block btn-outline-light mb-2" type="button" hx-get="{% url 'create-epos' x.id %}" hx-target="#eposforms" hx-swap="innerHTML" hx-push-url="/epos/{{ x.id }}/">{{ x.date | date:"l d M " }}</button>
+    </div>
+{% endfor %}

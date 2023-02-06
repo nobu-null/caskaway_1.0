@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Caskaway Targets{% endblock %}
 {% block menuBottom %}
-        <div id="footer-bar" class="footer-bar-2">
+       <div id="footer-bar" class="footer-bar-2">
             <a href="{% url 'targets' %}" class="{% if navbar == 'targets' %}active-nav{% endif %}">
                 <i class="fa fa-bullseye"></i><span>Targets</span></a>
             <a href="{% url 'financeHome' %}" class="{% if navbar == 'finance' %}active-nav{% endif %}">
                 <i class="fa fa-wallet"></i><span>Cash Flow</span><strong></strong></a>
-            <a href="{% url 'summary' %}" class="{% if navbar == 'summary' %}active-nav{% endif %}">
+            <a href="#" data-menu="menu-group-summary" class="{% if navbar == 'summary' %}active-nav{% endif %}">
                 <i class="fa fa-chart-line"></i><span>Summary</span></a>
-
         </div>
     {% endblock %}
 {% block content %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Caskaway Deposits Summary{% endblock %}
+{% block menuBottom %}
+        <div id="footer-bar" class="footer-bar-2">
+            <a href="{% url 'targets' %}" class="{% if navbar == 'targets' %}active-nav{% endif %}">
+                <i class="fa fa-bullseye"></i><span>Targets</span></a>
+            <a href="{% url 'financeHome' %}" class="{% if navbar == 'finance' %}active-nav{% endif %}">
+                <i class="fa fa-wallet"></i><span>Cash Flow</span><strong></strong></a>
+            <a href="#" data-menu="menu-group-summary" class="{% if navbar == 'summary' %}active-nav{% endif %}">
+                <i class="fa fa-chart-line"></i><span>Summary</span></a>
+        </div>
+    {% endblock %}
+{% block content %}
+    <div class="ps-3 pe-3 mt-4 text-center">
+        <h1 class="font-800 font-25 mb-1">Deposits Summary</h1>
+        <p class="color-highlight font-15 mt-2">Past 7 Days</p>
+    </div>
+    <hr>
+    <div class="ps-3 pe-3">
+
+    <table class="table table-borderless text-center rounded-sm shadow-l" style="overflow: hidden;">
+        <thead>
+            <tr>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Date</th>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Who</th>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">In</th>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Out</th>
+                <th scope="col" class="bg-night-light border-dark-dark py-3 color-white">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="bg-dark-light">
+       {% for x in deposits_pages %}
+            <tr>
+                <th scope="row">{{ x.date.date|date:"d M" }}</th>
+                <td>{{ x.who }}</td>
+                <td>&pound;{{ x.amount_in }}</td>
+                <td>&pound;{{ x.amount_out }}</td>
+                <td><a href="{% url 'update-epos' x.id %}" id="{{ x.id }}" class="btn btn-xxs shadow-sm text-uppercase font-800 bg-blue-dark">Edit</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% if deposits_pages.has_previous %}
+    <a href="?page=1">&laquo; First</a>
+    <a href="?page={{ deposits_pages.previous_page_number }}">Previous</a>
+    {% endif %}
+    Page {{ deposits_pages.number }} of {{ deposits_pages.paginator.num_pages }}
+    {% if deposits_pages.has_next %}
+    <a href="?page={{ deposits_pages.next_page_number }}">next</a>
+    <a href="?page={{ deposits_pages.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+    <hr>
+    <br>
+
+    
+{% endblock %}
+
+{% block offCanvas %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

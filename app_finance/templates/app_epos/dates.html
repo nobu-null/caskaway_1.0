@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% for x in date_list %}
+
+      <p><a href="{% url 'create-epos' x.id %}">{{ x.date | date:"l d M " }}</a></p>
+
+  {% endfor %}
+
+{% endblock %}
+

@@ -3917,8 +3917,7 @@ input[type=number] {
 /*Snackbars*/
 .snackbar-toast {
   bottom: 70px !important;
-  bottom: calc(70px + constant(safe-area-inset-bottom) * 1.1) !important;
-  bottom: calc(70px + env(safe-area-inset-bottom) * 1.1) !important;
+  bottom: calc(120px + env(safe-area-inset-bottom) * 1.1) !important;
   position: fixed;
   left: 10px !important;
   right: 10px !important;
